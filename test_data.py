@@ -1,6 +1,3 @@
-from metric.general import accuracy, precision, p_r_f1, recall, f1, box_iou, mae, mse
-from metric.utils import pretty_print
-
 preds = [1.0, 0.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0.0, 1.0, 0.0, 1.0, 0.0, 0.0, 1.0, 1.0, 0.0, 1.0, 0.0, 0.0, 0.0,
          0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 1.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 1.0, 1.0,
          0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
@@ -38,49 +35,3 @@ gts = [1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 0, 0, 0, 1, 1, 1, 0, 1, 0, 0, 0, 0, 0, 0
        0, 1, 1, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 1, 0,
        0, 0, 1, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 1, 0, 1, 0, 0, 0, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1,
        1, 1, 0, 0, 1, 1]
-
-
-def test_p_r_f():
-    length = len(preds)
-    cls_dict = {1: '有人脸', 0: '无人脸'}
-
-    acc = accuracy(preds, gts)
-    prec = precision(preds, gts, cls_dict)
-    rec = recall(preds, gts, cls_dict)
-    f = f1(preds, gts, cls_dict)
-    prf = p_r_f1(preds, gts, cls_dict)
-
-    print('样本数     ', length)
-    print('acc       ', acc)
-    print('precision ', prec, )
-    print('recall    ', rec, )
-    print('f1        ', f, )
-    pretty_print(prf)
-
-
-def test_mae_mse():
-    preds = [1, 2, 3]
-    gts = [1, 2, 4.2]
-    mae_ = mae(preds, gts)
-    mse_ = mse(preds, gts)
-    print({'mae': f'{mae_:.4f}', 'mse': f'{mse_:.4f}'})
-
-
-def test_iou():
-    preds_boxes = [
-        [0, 0, 13, 13],
-        [10, 10, 23, 45],
-        [1, 2, 45, 70]
-    ]
-    gts_boxes = [
-        [0, 0, 13, 13],
-        [10, 10, 20, 40]
-    ]
-
-    print('iou', box_iou(preds_boxes, gts_boxes))
-
-
-if __name__ == '__main__':
-    test_p_r_f()
-    test_mae_mse()
-    test_iou()
